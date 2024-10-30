@@ -1,0 +1,41 @@
+---
+import type { Platform } from "../platforms";
+
+const { emoji, name, text, url } = Astro.props as Platform;
+
+const baseClassnames =
+	"py-2 border-t border-neutral-200 dark:border-neutral-800 flex";
+
+const Tag = url ? "a" : "div";
+const attrs = url
+	? {
+			href: url,
+			class: `${baseClassnames} hover:bg-neutral-100 dark:hover:bg-neutral-900 group`,
+			target: "_blank",
+			rel: "noopener noreferrer",
+		}
+	: { class: baseClassnames };
+---
+
+<div>
+	<Tag {...attrs}>
+		<span class="inline-flex w-full items-center gap-2 px-2 justify-between">
+			<span class="flex items-center gap-2">
+				<span class="bg-neutral-300 dark:bg-neutral-700 p-1 text-xs"
+					>{emoji}</span
+				>
+				<span>{name}</span>
+			</span>
+			<span class="flex items-center gap-2">
+				{
+					name !== "Website" ? (
+						<span class="opacity-50">usr: </span>
+					) : (
+						<span class="opacity-50">loc: </span>
+					)
+				}
+				<span class="group-hover:underline group-focus:underline">{text}</span>
+			</span>
+		</span>
+	</Tag>
+</div>
